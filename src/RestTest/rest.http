@@ -1,0 +1,10 @@
+GET http://localhost:5050/api/
+###
+GET http://localhost:5050/api/ver
+###
+GET http://localhost:5050/api/ads
+###
+GET http://localhost:5050/api/ads/5f27fb7e3980bc799f8c1266
+###
+GET http://localhost:5050/api/user
+###

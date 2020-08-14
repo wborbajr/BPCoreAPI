@@ -1,0 +1,43 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:latest
+    container_name: 'bpcore-mongo'
+    restart: 'always'
+    volumes:
+      - ./.dbcache/mongo/data:/data/db
+    ports:
+      - '27019:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    networks:
+      - backend
+  api:
+    image: node:latest
+    container_name: 'bpcore-api'
+    ports:
+      - '1414:1414'
+    working_dir: '/home/node/app'
+    volumes:
+      - ./:/home/node/app
+    command:
+      - sh
+      - -c
+      - |
+        npm install --silent
+        npm start
+    networks:
+      - backend
+
+  redis:
+    image: redis:alpine
+    container_name: 'bpcore-redis'
+    ports:
+      - '6379:6379'
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: 'bridge'
